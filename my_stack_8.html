@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Stack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF7F2;
+  --white:#FFFFFF;
+  --pink:#E8537A;
+  --pink-light:#FBEAF0;
+  --pink-mid:#F4C0D1;
+  --pink-dark:#72243E;
+  --ink:#1A1410;
+  --ink2:#4A3728;
+  --muted:#9C8878;
+  --border:#EDE8E0;
+  --r:12px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
+.page{max-width:820px;margin:0 auto;padding:0 1.25rem 6rem;}
+
+/* ── HERO ── */
+.hero{padding:3.5rem 0 2rem;border-bottom:1.5px solid var(--border);margin-bottom:0;display:flex;justify-content:space-between;align-items:flex-end;}
+.hero-eyebrow{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--pink-mid);margin-bottom:10px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:700;line-height:1;color:var(--ink2);}
+.hero-title em{color:var(--pink);}
+.hero-sub{font-size:12px;color:var(--muted);line-height:1.7;max-width:200px;text-align:right;}
+
+/* ── STATIC BANNER ── */
+.quote-banner{
+  background:var(--pink-mid);
+  border-top:1.5px solid var(--pink-mid);
+  border-bottom:1.5px solid var(--pink-mid);
+  padding:9px 2rem;
+  text-align:center;
+}
+.quote-banner-text{
+  font-family:"DM Sans",sans-serif;
+  font-size:12px;
+  font-weight:500;
+  color:var(--pink-dark);
+  letter-spacing:.06em;
+}
+
+
+
+/* ── SECTION HEADS ── */
+.section{margin-top:3rem;}
+.s-head{display:flex;align-items:baseline;gap:14px;margin-bottom:1.5rem;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.s-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--ink2);}
+.s-title em{color:var(--pink);}
+.s-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--pink-mid);letter-spacing:.05em;}
+
+/* ── SCHEDULE ── */
+.schedule-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.5rem;}
+.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;}
+.day-col{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.day-name{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px;}
+.dot{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:500;font-family:'DM Mono',monospace;transition:transform .15s;cursor:default;border:1.5px solid transparent;}
+.dot:hover{transform:scale(1.1);}
+.dot-supp{background:#F0FAF5;color:#085041;border-color:#9FE1CB;}
+.dot-gtt{background:var(--pink-light);color:var(--pink-dark);border-color:var(--pink-mid);}
+.dot-ghk{background:#FFF4F0;color:#712B13;border-color:#F5C4B3;}
+.dot-ret{background:#F4F0FF;color:#3C3489;border-color:#CECBF6;}
+.dot-smx{background:#EEF6FF;color:#0C447C;border-color:#B5D4F4;}
+.dot-empty{background:var(--cream);border:1.5px dashed var(--border);opacity:.6;}
+.legend-wrap{display:flex;flex-wrap:wrap;gap:12px;margin-top:1.25rem;padding-top:1rem;border-top:1.5px solid var(--border);}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);}
+.ldot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* ── PEPTIDE CARDS ── */
+.peptide-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.pcard{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.25rem;position:relative;overflow:hidden;}
+.pcard-accent{position:absolute;top:0;left:0;right:0;height:3px;}
+.pcard-ret .pcard-accent{background:#534AB7;}
+.pcard-gtt .pcard-accent{background:var(--pink);}
+.pcard-ghk .pcard-accent{background:#993C1D;}
+.pcard-smx .pcard-accent{background:#185FA5;}
+.pcard-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.pcard-sub{font-size:11px;color:var(--muted);margin-bottom:12px;}
+.freq-tag{display:inline-flex;font-size:10px;font-weight:500;letter-spacing:.04em;padding:3px 10px;border-radius:99px;float:right;margin-top:-2px;}
+.freq-purple{background:#F4F0FF;color:#3C3489;border:1px solid #CECBF6;}
+.freq-pink{background:var(--pink-light);color:var(--pink-dark);border:1px solid var(--pink-mid);}
+.freq-coral{background:#FFF4F0;color:#712B13;border:1px solid #F5C4B3;}
+.freq-blue{background:#EEF6FF;color:#0C447C;border:1px solid #B5D4F4;}
+.dose-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;}
+.dcell{background:var(--cream);border-radius:8px;padding:8px 10px;border:1px solid var(--border);}
+.dlabel{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:3px;}
+.dval{font-size:13px;font-weight:500;font-family:'DM Mono',monospace;color:var(--ink);}
+.blend-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.blend-head{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;}
+.blend-doses{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;}
+.recon{background:var(--cream);border-left:2px solid var(--pink-mid);padding:7px 11px;font-size:10.5px;color:var(--muted);font-family:'DM Mono',monospace;line-height:1.6;border-radius:0 6px 6px 0;}
+
+/* ── SUPPLEMENT CARDS ── */
+.supp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.scard{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.25rem;}
+.scard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2px;}
+.scard-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink);}
+.scard-brand{font-size:10px;color:var(--muted);margin-bottom:12px;}
+.sdaily{display:inline-flex;font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;}
+.sd-teal{background:#F0FAF5;color:#085041;border:1px solid #9FE1CB;}
+.sd-blue{background:#EEF6FF;color:#0C447C;border:1px solid #B5D4F4;}
+.sd-amber{background:#FFFBE8;color:#7A5C00;border:1px solid #FAC775;}
+.ing-row{display:flex;justify-content:space-between;align-items:baseline;padding:4.5px 0;border-bottom:1px solid var(--border);font-size:12px;gap:8px;}
+.ing-row:last-child{border-bottom:none;}
+.ing-name{color:var(--muted);flex:1;}
+.ing-val{font-weight:500;font-family:'DM Mono',monospace;font-size:11px;color:var(--ink);white-space:nowrap;}
+.totals-card{background:var(--ink);border-radius:var(--r);padding:1.5rem;grid-column:1/-1;}
+.totals-head{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--pink-mid);margin-bottom:14px;}
+.totals-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;}
+.tcell{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:10px 12px;text-align:center;}
+.tcell-label{font-size:9px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;}
+.tcell-val{font-size:14px;font-weight:500;font-family:'DM Mono',monospace;color:#fff;}
+
+/* ── CALCULATOR ── */
+.calc-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.5rem;}
+
+/* my peptides quick-load */
+.mp-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:10px;display:block;}
+.mp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:8px;}
+.mp-card{background:var(--cream);border:1.5px solid var(--border);border-radius:10px;padding:11px 13px;cursor:pointer;transition:all .15s;}
+.mp-card:hover{border-color:var(--pink);background:var(--pink-light);}
+.mp-card.mp-active{border-color:var(--pink);background:var(--pink-light);}
+.mp-card-name{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.mp-card-detail{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;line-height:1.5;}
+.mp-clear{background:none;border:none;font-size:11px;font-weight:500;color:var(--muted);cursor:pointer;padding:4px 0;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:4px;}
+.mp-clear:hover{color:var(--pink);}
+
+.or-divider{display:flex;align-items:center;gap:10px;margin:1.25rem 0;color:var(--muted);}
+.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.or-divider span{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.12em;white-space:nowrap;}
+
+.calc-sh{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:0 0 10px;display:block;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.chip{display:inline-flex;align-items:center;justify-content:center;min-width:50px;padding:6px 13px;border-radius:99px;font-size:12px;cursor:pointer;background:var(--cream);border:1.5px solid var(--border);color:var(--ink2);transition:all .15s;font-family:'DM Sans',sans-serif;}
+.chip:hover{border-color:var(--pink);color:var(--pink);}
+.chip.on{background:var(--pink);border-color:var(--pink);color:#fff;}
+.cinput-row{display:flex;align-items:center;gap:8px;margin-bottom:1.5rem;}
+.cinput{flex:1;padding:9px 14px;border-radius:8px;border:1.5px solid var(--border);font-size:13px;color:var(--ink);background:var(--cream);outline:none;font-family:'DM Sans',sans-serif;}
+.cinput:focus{border-color:var(--pink);}
+.cunit{font-size:12px;font-weight:500;color:var(--muted);}
+.calc-divider{height:1.5px;background:var(--border);margin:1.5rem 0;}
+
+.syr-selector{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+.syr-card{background:var(--cream);border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .15s;text-align:center;}
+.syr-card:hover{border-color:var(--pink);}
+.syr-card.on{background:var(--pink-light);border-color:var(--pink);}
+.syr-card-icon{font-size:22px;display:block;margin-bottom:6px;}
+.syr-card-name{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.syr-card-spec{font-size:10px;color:var(--muted);}
+
+.results-box{background:var(--cream);border:1.5px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-top:.5rem;}
+.results-center{text-align:center;margin-bottom:1.5rem;}
+.rlabel{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);}
+.rbig{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--ink);line-height:1;margin:6px 0 4px;}
+.rsub{font-size:13px;color:var(--ink2);}
+.rsub strong{color:var(--pink);}
+.syr-block{background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:10px;}
+.syr-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.syr-label{font-size:12px;font-weight:500;color:var(--ink);}
+.syr-spec-label{font-size:10px;color:var(--muted);}
+.draw-badge{background:var(--pink);color:#fff;font-size:10px;font-weight:500;padding:4px 12px;border-radius:99px;white-space:nowrap;}
+.syr-vol{font-size:11px;color:var(--muted);text-align:center;margin-top:5px;font-family:'DM Mono',monospace;}
+.stats-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
+.stat{background:var(--white);border:1.5px solid var(--border);border-radius:10px;padding:12px;text-align:center;}
+.stat-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;}
+.stat-val{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--ink);}
+.stat-unit{font-size:10px;color:var(--muted);margin-top:1px;}
+.warn-box{background:#FFF4F0;border:1.5px solid #F5C4B3;border-radius:8px;padding:8px 12px;font-size:11px;color:#712B13;margin-bottom:10px;}
+.empty-state{text-align:center;padding:1.5rem 0;font-size:13px;color:var(--muted);}
+
+/* ── FOOTER ── */
+.page-footer{margin-top:4rem;padding-top:1.5rem;border-top:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.footer-sig{font-family:'Playfair Display',serif;font-size:18px;color:var(--muted);}
+.footer-note{font-size:11px;color:var(--muted);max-width:280px;text-align:right;line-height:1.6;}
+
+@media(max-width:580px){
+  .peptide-grid,.supp-grid,.mp-grid,.syr-selector{grid-template-columns:1fr;}
+  .week-grid{gap:4px;}
+  .dot{width:34px;height:34px;font-size:7.5px;}
+  .hero{flex-direction:column;align-items:flex-start;gap:1rem;}
+  .hero-sub{text-align:left;max-width:none;}
+  .page-footer{flex-direction:column;gap:12px;align-items:flex-start;}
+  .footer-note{text-align:left;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <p class="hero-eyebrow">Personal wellness protocol</p>
+    <h1 class="hero-title">My<br><em>Stack.</em></h1>
+  </div>
+  <div>
+    <p class="hero-sub">Supplements · Peptides<br>Weekly schedule · Calculator</p>
+  </div>
+</div>
+
+<!-- QUOTE BANNER -->
+<div class="quote-banner">
+  <p class="quote-banner-text">I love the woman I am becoming.</p>
+</div>
+
+<!-- 1. WEEKLY SCHEDULE -->
+<div class="section">
+  <div class="s-head">
+    <span class="s-num">01</span>
+    <h2 class="s-title">Weekly <em>Schedule</em></h2>
+  </div>
+  <div class="schedule-card">
+    <div class="week-grid">
+      <div class="day-col"><p class="day-name">Mon</p>
+        <div class="dot dot-supp" title="Supplements">Supp</div>
+        <div class="dot dot-gtt" title="Glutathione">Gtt</div>
+        <div class="dot dot-ghk" title="GHK-Cu + KPV">GHK</div>
+        <div class="dot dot-smx" title="Semax">Smx</div>
+      </div>
+      <div class="day-col"><p class="day-name">Tue</p>
+        <div class="dot dot-supp" title="Supplements">Supp</div>
+        <div class="dot dot-empty"></div>
+        <div class="dot dot-ghk" title="GHK-Cu + KPV">GHK</div>
+        <div class="dot dot-empty"></div>
+      </div>
+      <div class="day-col"><p class="day-name">Wed</p>
+        <div class="dot dot-supp" title="Supplements">Supp</div>
+        <div class="dot dot-empty"></div>
+        <div class="dot dot-ghk" title="GHK-Cu + KPV">GHK</div>
+        <div class="dot dot-smx" title="Semax">Smx</div>
+      </div>
+      <div class="day-col"><p class="day-name">Thu</p>
+        <div class="dot dot-supp" title="Supplements">Supp</div>
+        <div class="dot dot-gtt" title="Glutathione">Gtt</div>
+        <div class="dot dot-ghk" title="GHK-Cu + KPV">GHK</div>
+        <div class="dot dot-empty"></div>
+      </div>
+      <div class="day-col"><p class="day-name">Fri</p>
+        <div class="dot dot-supp" title="Supplements">Supp</div>
+        <div class="dot dot-ret" title="Retatrutide">Ret</div>
+        <div class="dot dot-ghk" title="GHK-Cu + KPV">GHK</div>
+        <div class="dot dot-smx" title="Semax">Smx</div>
+      </div>
+      <div class="day-col"><p class="day-name">Sat</p>
+        <div class="dot dot-supp" title="Supplements">Supp</div>
+        <div class="dot dot-empty"></div>
+        <div class="dot dot-ghk" title="GHK-Cu + KPV">GHK</div>
+        <div class="dot dot-empty"></div>
+      </div>
+      <div class="day-col"><p class="day-name">Sun</p>
+        <div class="dot dot-supp" title="Supplements">Supp</div>
+        <div class="dot dot-empty"></div>
+        <div class="dot dot-ghk" title="GHK-Cu + KPV">GHK</div>
+        <div class="dot dot-smx" title="Semax">Smx</div>
+      </div>
+    </div>
+    <div class="legend-wrap">
+      <div class="legend-item"><div class="ldot" style="background:#9FE1CB"></div>Supp — daily supplements</div>
+      <div class="legend-item"><div class="ldot" style="background:#F4C0D1"></div>Gtt — Glutathione · Mon &amp; Thu</div>
+      <div class="legend-item"><div class="ldot" style="background:#F5C4B3"></div>GHK — GHK-Cu + KPV · daily</div>
+      <div class="legend-item"><div class="ldot" style="background:#CECBF6"></div>Ret — Retatrutide · Friday</div>
+      <div class="legend-item"><div class="ldot" style="background:#B5D4F4"></div>Smx — Semax · every other day</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. PEPTIDES -->
+<div class="section">
+  <div class="s-head">
+    <span class="s-num">02</span>
+    <h2 class="s-title"><em>Peptide</em> Protocol</h2>
+  </div>
+  <div class="peptide-grid">
+
+    <div class="pcard pcard-ret">
+      <div class="pcard-accent"></div>
+      <span class="freq-tag freq-purple">Fri · 1×/wk</span>
+      <p class="pcard-name">Retatrutide</p>
+      <p class="pcard-sub">GLP-1 / GIP / Glucagon tri-agonist</p>
+      <div class="dose-row">
+        <div class="dcell"><p class="dlabel">Dose</p><p class="dval">0.5 mg</p></div>
+        <div class="dcell"><p class="dlabel">Volume</p><p class="dval">0.05 mL</p></div>
+        <div class="dcell"><p class="dlabel">Units</p><p class="dval">5 u</p></div>
+      </div>
+      <div class="recon">20mg / 2mL bac water · 10mg/mL</div>
+    </div>
+
+    <div class="pcard pcard-gtt">
+      <div class="pcard-accent"></div>
+      <span class="freq-tag freq-pink">Mon &amp; Thu</span>
+      <p class="pcard-name">Glutathione</p>
+      <p class="pcard-sub">Antioxidant · detox · skin brightening</p>
+      <div class="dose-row">
+        <div class="dcell"><p class="dlabel">Dose</p><p class="dval">214 mg</p></div>
+        <div class="dcell"><p class="dlabel">Volume</p><p class="dval">1 mL</p></div>
+        <div class="dcell"><p class="dlabel">Units</p><p class="dval">100 u</p></div>
+      </div>
+      <div class="recon">1,500mg / 7mL bac water · ~214mg/mL</div>
+    </div>
+
+    <div class="pcard pcard-ghk">
+      <div class="pcard-accent"></div>
+      <span class="freq-tag freq-coral">Daily</span>
+      <p class="pcard-name">GHK-Cu + KPV</p>
+      <p class="pcard-sub">Copper peptide · anti-inflammatory · repair</p>
+      <div class="blend-cols">
+        <div>
+          <p class="blend-head">GHK-Cu</p>
+          <div class="blend-doses">
+            <div class="dcell"><p class="dlabel">Dose</p><p class="dval">2 mg</p></div>
+            <div class="dcell"><p class="dlabel">Vol</p><p class="dval">0.10mL</p></div>
+            <div class="dcell"><p class="dlabel">Units</p><p class="dval">10 u</p></div>
+          </div>
+        </div>
+        <div>
+          <p class="blend-head">KPV</p>
+          <div class="blend-doses">
+            <div class="dcell"><p class="dlabel">Dose</p><p class="dval">200mcg</p></div>
+            <div class="dcell"><p class="dlabel">Vol</p><p class="dval">0.10mL</p></div>
+            <div class="dcell"><p class="dlabel">Units</p><p class="dval">10 u</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="recon">100mg GHK-Cu + 10mg KPV / 5mL · GHK 20mg/mL · KPV 2mg/mL</div>
+    </div>
+
+    <div class="pcard pcard-smx">
+      <div class="pcard-accent"></div>
+      <span class="freq-tag freq-blue">Every other day</span>
+      <p class="pcard-name">Semax</p>
+      <p class="pcard-sub">Nootropic · neuroprotective · intranasal</p>
+      <div class="dose-row">
+        <div class="dcell"><p class="dlabel">Dose</p><p class="dval">100 mcg</p></div>
+        <div class="dcell"><p class="dlabel">Sprays</p><p class="dval">1 spray</p></div>
+        <div class="dcell"><p class="dlabel">Route</p><p class="dval">Nasal</p></div>
+      </div>
+      <div class="recon">10mg / 2mL bac water · 5mg/mL · ~100mcg/spray</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 3. SUPPLEMENTS -->
+<div class="section">
+  <div class="s-head">
+    <span class="s-num">03</span>
+    <h2 class="s-title">Daily <em>Supplements</em></h2>
+  </div>
+  <div class="supp-grid">
+
+    <div class="scard">
+      <div class="scard-top">
+        <p class="scard-name">Hair, Skin &amp; Nails</p>
+        <span class="sdaily sd-teal">Daily</span>
+      </div>
+      <p class="scard-brand">Nature's Bounty · 3 softgels/day with meal</p>
+      <div class="ing-row"><span class="ing-name">Biotin (d-Biotin)</span><span class="ing-val">5,000 mcg</span></div>
+      <div class="ing-row"><span class="ing-name">Vitamin A</span><span class="ing-val">5,000 IU</span></div>
+      <div class="ing-row"><span class="ing-name">Vitamin C</span><span class="ing-val">60 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Vitamin D3</span><span class="ing-val">800 IU</span></div>
+      <div class="ing-row"><span class="ing-name">Vitamin E</span><span class="ing-val">15 IU</span></div>
+      <div class="ing-row"><span class="ing-name">Vitamin B1 (Thiamin)</span><span class="ing-val">5 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Vitamin B2 (Riboflavin)</span><span class="ing-val">5 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Niacin (B3)</span><span class="ing-val">25 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Vitamin B6</span><span class="ing-val">5 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Folic Acid</span><span class="ing-val">200 mcg</span></div>
+      <div class="ing-row"><span class="ing-name">Vitamin B12</span><span class="ing-val">8 mcg</span></div>
+      <div class="ing-row"><span class="ing-name">Pantothenic Acid (B5)</span><span class="ing-val">15 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Iron</span><span class="ing-val">3 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Zinc (Gluconate)</span><span class="ing-val">7.5 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Selenium</span><span class="ing-val">12.5 mcg</span></div>
+      <div class="ing-row"><span class="ing-name">Manganese</span><span class="ing-val">5 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Hydrolyzed Collagen</span><span class="ing-val">50 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Hyaluronic Acid</span><span class="ing-val">30 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Argan Oil</span><span class="ing-val">25 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Alpha Lipoic Acid</span><span class="ing-val">10 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Choline Bitartrate</span><span class="ing-val">10 mg</span></div>
+      <div class="ing-row"><span class="ing-name">PABA</span><span class="ing-val">10 mg</span></div>
+      <div class="ing-row"><span class="ing-name">Horsetail Extract</span><span class="ing-val">3 mg</span></div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div class="scard">
+        <div class="scard-top"><p class="scard-name">Zinc</p><span class="sdaily sd-blue">Daily</span></div>
+        <p class="scard-brand">Nature's Bounty · 1 caplet/day</p>
+        <div class="ing-row"><span class="ing-name">Zinc</span><span class="ing-val">50 mg</span></div>
+      </div>
+      <div class="scard">
+        <div class="scard-top"><p class="scard-name">Vitamin C</p><span class="sdaily sd-amber">Daily</span></div>
+        <p class="scard-brand">Kirkland · 1 chewable/day</p>
+        <div class="ing-row"><span class="ing-name">Vitamin C (Ascorbic Acid)</span><span class="ing-val">500 mg</span></div>
+      </div>
+      <div class="totals-card">
+        <p class="totals-head">Combined daily totals</p>
+        <div class="totals-grid">
+          <div class="tcell"><p class="tcell-label">Biotin</p><p class="tcell-val">5,000 mcg</p></div>
+          <div class="tcell"><p class="tcell-label">Vitamin C</p><p class="tcell-val">560 mg</p></div>
+          <div class="tcell"><p class="tcell-label">Zinc</p><p class="tcell-val">57.5 mg</p></div>
+          <div class="tcell"><p class="tcell-label">Collagen</p><p class="tcell-val">50 mg</p></div>
+          <div class="tcell"><p class="tcell-label">Hyaluronic</p><p class="tcell-val">30 mg</p></div>
+          <div class="tcell"><p class="tcell-label">Vitamin A</p><p class="tcell-val">5,000 IU</p></div>
+          <div class="tcell"><p class="tcell-label">Vitamin D3</p><p class="tcell-val">800 IU</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4. CALCULATOR -->
+<div class="section">
+  <div class="s-head">
+    <span class="s-num">04</span>
+    <h2 class="s-title">Peptide <em>Calculator</em></h2>
+  </div>
+  <div class="calc-card">
+
+    <!-- QUICK LOAD -->
+    <span class="mp-label">✦ Quick-load my peptides</span>
+    <div class="mp-grid">
+      <div class="mp-card" id="mp-ret" onclick="loadPeptide('ret')">
+        <p class="mp-card-name">Retatrutide</p>
+        <p class="mp-card-detail">0.5mg · 20mg vial · 2mL water</p>
+      </div>
+      <div class="mp-card" id="mp-gtt" onclick="loadPeptide('gtt')">
+        <p class="mp-card-name">Glutathione</p>
+        <p class="mp-card-detail">214mg · 1,500mg vial · 7mL water</p>
+      </div>
+      <div class="mp-card" id="mp-ghk" onclick="loadPeptide('ghk')">
+        <p class="mp-card-name">GHK-Cu</p>
+        <p class="mp-card-detail">2mg · 100mg vial · 5mL water</p>
+      </div>
+      <div class="mp-card" id="mp-smx" onclick="loadPeptide('smx')">
+        <p class="mp-card-name">Semax</p>
+        <p class="mp-card-detail">0.1mg · 10mg vial · 2mL water</p>
+      </div>
+    </div>
+    <button class="mp-clear" onclick="clearPeptide()">✕ Clear selection</button>
+
+    <div class="or-divider"><span>or enter manually</span></div>
+
+    <span class="calc-sh">Dose of peptide</span>
+    <div class="chips" id="pc-dose-chips">
+      <div class="chip" data-val="0.1" onclick="pcChip('dose',this)">0.1mg</div>
+      <div class="chip" data-val="0.25" onclick="pcChip('dose',this)">0.25mg</div>
+      <div class="chip" data-val="0.5" onclick="pcChip('dose',this)">0.5mg</div>
+      <div class="chip" data-val="1" onclick="pcChip('dose',this)">1mg</div>
+      <div class="chip" data-val="2" onclick="pcChip('dose',this)">2mg</div>
+      <div class="chip" data-val="2.5" onclick="pcChip('dose',this)">2.5mg</div>
+      <div class="chip" data-val="5" onclick="pcChip('dose',this)">5mg</div>
+      <div class="chip" data-val="7.5" onclick="pcChip('dose',this)">7.5mg</div>
+      <div class="chip" data-val="10" onclick="pcChip('dose',this)">10mg</div>
+      <div class="chip" data-val="12.5" onclick="pcChip('dose',this)">12.5mg</div>
+      <div class="chip" data-val="15" onclick="pcChip('dose',this)">15mg</div>
+    </div>
+    <div class="cinput-row">
+      <input class="cinput" type="number" id="pc-dose-custom" placeholder="Custom dose" min="0" step="0.01" oninput="pcCustom('dose',this)">
+      <span class="cunit">mg</span>
+    </div>
+
+    <span class="calc-sh">Strength of peptide (vial)</span>
+    <div class="chips" id="pc-strength-chips">
+      <div class="chip" data-val="1" onclick="pcChip('strength',this)">1mg</div>
+      <div class="chip" data-val="5" onclick="pcChip('strength',this)">5mg</div>
+      <div class="chip" data-val="10" onclick="pcChip('strength',this)">10mg</div>
+      <div class="chip" data-val="15" onclick="pcChip('strength',this)">15mg</div>
+      <div class="chip" data-val="20" onclick="pcChip('strength',this)">20mg</div>
+      <div class="chip" data-val="30" onclick="pcChip('strength',this)">30mg</div>
+      <div class="chip" data-val="50" onclick="pcChip('strength',this)">50mg</div>
+      <div class="chip" data-val="100" onclick="pcChip('strength',this)">100mg</div>
+      <div class="chip" data-val="1500" onclick="pcChip('strength',this)">1,500mg</div>
+    </div>
+    <div class="cinput-row">
+      <input class="cinput" type="number" id="pc-strength-custom" placeholder="Custom strength" min="0" step="0.1" oninput="pcCustom('strength',this)">
+      <span class="cunit">mg</span>
+    </div>
+
+    <span class="calc-sh">Bac water added</span>
+    <div class="chips" id="pc-water-chips">
+      <div class="chip" data-val="0.5" onclick="pcChip('water',this)">0.5mL</div>
+      <div class="chip" data-val="1" onclick="pcChip('water',this)">1mL</div>
+      <div class="chip" data-val="1.5" onclick="pcChip('water',this)">1.5mL</div>
+      <div class="chip" data-val="2" onclick="pcChip('water',this)">2mL</div>
+      <div class="chip" data-val="2.5" onclick="pcChip('water',this)">2.5mL</div>
+      <div class="chip" data-val="3" onclick="pcChip('water',this)">3mL</div>
+      <div class="chip" data-val="5" onclick="pcChip('water',this)">5mL</div>
+      <div class="chip" data-val="7" onclick="pcChip('water',this)">7mL</div>
+    </div>
+    <div class="cinput-row">
+      <input class="cinput" type="number" id="pc-water-custom" placeholder="Custom water" min="0" step="0.1" oninput="pcCustom('water',this)">
+      <span class="cunit">mL</span>
+    </div>
+
+    <span class="calc-sh">Select your syringe</span>
+    <div class="syr-selector">
+      <div class="syr-card on" id="syr-a" onclick="selSyr('a')">
+        <span class="syr-card-icon">🩺</span>
+        <p class="syr-card-name">Sungshim Insulin 31G</p>
+        <p class="syr-card-spec">0.5 mL · 50 units · 8mm · subQ</p>
+      </div>
+      <div class="syr-card" id="syr-b" onclick="selSyr('b')">
+        <span class="syr-card-icon">💉</span>
+        <p class="syr-card-name">Cardinal Care 25G</p>
+        <p class="syr-card-spec">1 mL · 100 units · Luer slip · IM/subQ</p>
+      </div>
+    </div>
+
+    <div class="calc-divider"></div>
+    <div id="pc-results"><p class="empty-state">Quick-load a peptide or select values above to see results.</p></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <p class="footer-sig">My Stack ✦</p>
+  <p class="footer-note">Take supplements with food. Inject peptides at consistent times. Always follow your prescribing provider's protocol.</p>
+</div>
+
+</div><!-- /page -->
+
+<script>
+var pc={dose:null,strength:null,water:null};
+var activeSyr='a';
+var syringes={
+  a:{name:'Sungshim Insulin 31G',spec:'0.5 mL · 50 units · 8mm needle · subQ',maxML:0.5,maxU:50,gauge:'31G'},
+  b:{name:'Cardinal Care 25G',spec:'1 mL · 100 units · Luer slip · IM/subQ',maxML:1,maxU:100,gauge:'25G'}
+};
+var myPeptides={
+  ret:{dose:0.5,strength:20,water:2},
+  gtt:{dose:214,strength:1500,water:7},
+  ghk:{dose:2,strength:100,water:5},
+  smx:{dose:0.1,strength:10,water:2}
+};
+var activeMp=null;
+
+function loadPeptide(id){
+  if(activeMp===id){clearPeptide();return;}
+  activeMp=id;
+  ['ret','gtt','ghk','smx'].forEach(function(k){document.getElementById('mp-'+k).classList.toggle('mp-active',k===id);});
+  var p=myPeptides[id];
+  pc.dose=p.dose;pc.strength=p.strength;pc.water=p.water;
+  setChip('dose',p.dose);setChip('strength',p.strength);setChip('water',p.water);
+  document.getElementById('pc-dose-custom').value='';
+  document.getElementById('pc-strength-custom').value='';
+  document.getElementById('pc-water-custom').value='';
+  pcRender();
+}
+
+function clearPeptide(){
+  activeMp=null;
+  ['ret','gtt','ghk','smx'].forEach(function(k){document.getElementById('mp-'+k).classList.remove('mp-active');});
+  pc={dose:null,strength:null,water:null};
+  ['dose','strength','water'].forEach(function(t){
+    document.querySelectorAll('#pc-'+t+'-chips .chip').forEach(function(c){c.classList.remove('on');});
+    document.getElementById('pc-'+t+'-custom').value='';
+  });
+  document.getElementById('pc-results').innerHTML='<p class="empty-state">Quick-load a peptide or select values above to see results.</p>';
+}
+
+function setChip(type,val){
+  document.querySelectorAll('#pc-'+type+'-chips .chip').forEach(function(c){c.classList.toggle('on',parseFloat(c.dataset.val)===val);});
+}
+
+function selSyr(id){
+  activeSyr=id;
+  document.getElementById('syr-a').classList.toggle('on',id==='a');
+  document.getElementById('syr-b').classList.toggle('on',id==='b');
+  if(pc.dose&&pc.strength&&pc.water)pcRender();
+}
+
+function pcChip(type,el){
+  if(activeMp){activeMp=null;['ret','gtt','ghk','smx'].forEach(function(k){document.getElementById('mp-'+k).classList.remove('mp-active');});}
+  document.querySelectorAll('#pc-'+type+'-chips .chip').forEach(function(c){c.classList.remove('on');});
+  el.classList.add('on');
+  pc[type]=parseFloat(el.dataset.val);
+  document.getElementById('pc-'+type+'-custom').value='';
+  pcRender();
+}
+
+function pcCustom(type,el){
+  var v=parseFloat(el.value);
+  if(!isNaN(v)&&v>0){
+    if(activeMp){activeMp=null;['ret','gtt','ghk','smx'].forEach(function(k){document.getElementById('mp-'+k).classList.remove('mp-active');});}
+    document.querySelectorAll('#pc-'+type+'-chips .chip').forEach(function(c){c.classList.remove('on');});
+    pc[type]=v;pcRender();
+  }
+}
+
+function mkSVG(containerId,syr,drawU){
+  var maxU=syr.maxU,pct=Math.min(drawU/maxU,1),bW=440,fW=Math.round(bW*pct);
+  var step=maxU===100?10:5,ns='http://www.w3.org/2000/svg';
+  var svg=document.createElementNS(ns,'svg');
+  svg.setAttribute('viewBox','0 0 540 56');svg.setAttribute('width','100%');svg.setAttribute('height','56');
+  function mk(tag,at){var e=document.createElementNS(ns,tag);Object.keys(at).forEach(function(k){e.setAttribute(k,at[k]);});return e;}
+  svg.appendChild(mk('rect',{x:20,y:14,width:bW,height:24,rx:8,fill:'#EDE8E0'}));
+  if(fW>0)svg.appendChild(mk('rect',{x:20,y:14,width:fW,height:24,rx:8,fill:'#E8537A'}));
+  for(var t=0;t<=maxU;t+=step){
+    var x=20+Math.round((t/maxU)*bW),big=t%(step*2)===0||t===maxU,ly=big?38:41;
+    svg.appendChild(mk('line',{x1:x,y1:ly,x2:x,y2:ly+(big?16:9),stroke:'#9C8878','stroke-width':big?1.5:1}));
+    if(big&&t>0){var tx=document.createElementNS(ns,'text');tx.setAttribute('x',x);tx.setAttribute('y',56);tx.setAttribute('text-anchor','middle');tx.setAttribute('font-size','10');tx.setAttribute('fill','#9C8878');tx.setAttribute('font-family','DM Mono,monospace');tx.textContent=t;svg.appendChild(tx);}
+  }
+  var px=Math.min(fW+20,460);
+  svg.appendChild(mk('rect',{x:px,y:10,width:8,height:32,rx:4,fill:'#72243E'}));
+  svg.appendChild(mk('polygon',{points:'460,18 482,23 482,31 460,34',fill:'#D3D1C7'}));
+  svg.appendChild(mk('rect',{x:482,y:20,width:16,height:12,rx:3,fill:'#B4B2A9'}));
+  svg.appendChild(mk('line',{x1:498,y1:26,x2:522,y2:26,stroke:'#888780','stroke-width':2.5}));
+  svg.appendChild(mk('rect',{x:12,y:10,width:10,height:32,rx:3,fill:'#EDE8E0'}));
+  var c=document.getElementById(containerId);if(c){c.innerHTML='';c.appendChild(svg);}
+}
+
+function pcRender(){
+  var d=pc.dose,s=pc.strength,w=pc.water,ra=document.getElementById('pc-results');
+  if(!d||!s||!w){ra.innerHTML='<p class="empty-state">Quick-load a peptide or select values above to see results.</p>';return;}
+  var conc=s/w,vol=d/conc,doses=Math.floor(s/d);
+  var syr=syringes[activeSyr],drawU=vol*100;
+  var warn=vol>syr.maxML?'<div class="warn-box">⚠️ This dose ('+vol.toFixed(3)+' mL) exceeds '+syr.name+' capacity ('+syr.maxML+' mL). Switch syringes or split the dose.</div>':'';
+  ra.innerHTML=
+    '<div class="results-box">'+warn+
+      '<div class="results-center">'+
+        '<p class="rlabel">Peptide dose</p>'+
+        '<p class="rbig">'+d+' mg</p>'+
+        '<p class="rsub">Draw <strong>'+syr.name+'</strong> to <strong>'+drawU.toFixed(1)+' units</strong></p>'+
+      '</div>'+
+      '<div class="syr-block">'+
+        '<div class="syr-header">'+
+          '<div><p class="syr-label">'+syr.name+' ('+syr.gauge+')</p><p class="syr-spec-label">'+syr.spec+'</p></div>'+
+          '<span class="draw-badge">'+drawU.toFixed(1)+' u</span>'+
+        '</div>'+
+        '<div id="pc-syr-main"></div>'+
+        '<p class="syr-vol">'+vol.toFixed(3)+' mL</p>'+
+      '</div>'+
+      '<div class="stats-row">'+
+        '<div class="stat"><p class="stat-label">Doses / vial</p><p class="stat-val">'+doses+'</p><p class="stat-unit">doses</p></div>'+
+        '<div class="stat"><p class="stat-label">Concentration</p><p class="stat-val">'+conc.toFixed(2)+'</p><p class="stat-unit">mg / mL</p></div>'+
+      '</div>'+
+    '</div>';
+  mkSVG('pc-syr-main',syr,drawU);
+}
+</script>
+</body>
+</html>
